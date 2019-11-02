@@ -38,11 +38,11 @@ def NVNH():
     
     if request.method == "POST":
         Ma_so = request.form.get("Th_Ma_so")
-        if Ma_so == "DANH_SACH"
+        if Ma_so == "DANH_SACH":
             Dia_chi_Man_hinh = "/nvnh/danh-sach-tivi"
-        elif Ma_so == "PHIEU_NHAP"
+        elif Ma_so == "PHIEU_NHAP":
             pass
-            
+
     return render_template("Nhan_vien_Nhap_hang/MH_Chinh.html", Chuoi_HTML_Nhan_vien=Chuoi_HTML_Nhan_Vien, Dia_chi_MH=Dia_chi_Man_hinh)
 
 @app.route("/nvnh/dang-xuat", methods=['GET', 'POST'])
@@ -57,6 +57,6 @@ def NVNH_Xem_DS_Tivi():
     Chuoi_HTML_Danh_sach_Tivi = Tao_Chuoi_HTML_Danh_sach_Tivi(danh_sach_Tivi_Xem)
     return render_template("Nhan_vien_nhap_hang/MH_Xem_Danh_sach_Tivi.html", Chuoi_HTML_Danh_sach_Tivi=Chuoi_HTML_Danh_sach_Tivi)
 
-# def NVNH_Thong_tin():
-#     Nhan_vien_Dang_nhap = session["session_NVNH"]
-#     Chuoi_HTML_Nhan_Vien = Tao_chuoi_HTML_Nhan_vien(Nhan_vien_Dang_nhap)
+@app.route("/nvnh/danh-sach-phieu-nhap")
+def NVNH_Danh_sach_Phieu_nhap():
+    return render_template("Nhan_vien_nhap_hang/MH_Xem_Phieu_nhap.html")
