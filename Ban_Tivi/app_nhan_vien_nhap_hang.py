@@ -43,6 +43,10 @@ def NVNH():
             Dia_chi_Man_hinh = "/nvnh/danh-sach-tivi"
         elif Ma_so == "PHIEU_NHAP":
             Dia_chi_Man_hinh = "/nvnh/danh-sach-phieu-nhap"
+        elif Ma_so == "TIM_KIEM":
+            Chuoi_tim_kiem = request.form.get("Th_Chuoi_Tra_cuu")
+            Dia_chi_Man_hinh = "/nvnh/tim-kiem/" + Chuoi_tim_kiem 
+        
 
     return render_template("Nhan_vien_Nhap_hang/MH_Chinh.html", Chuoi_HTML_Nhan_vien=Chuoi_HTML_Nhan_Vien, Dia_chi_MH=Dia_chi_Man_hinh)
 
@@ -61,9 +65,17 @@ def NVNH_Xem_DS_Tivi():
 @app.route("/nvnh/danh-sach-phieu-nhap")
 def NVNH_Danh_sach_Phieu_nhap():
     Danh_sach_Tivi = Doc_Danh_sach_Tivi()
-
     Ngay = datetime.now().strftime("%d-%m-%Y")
     Danh_sach_Tivi_nhap = Danh_sach_Tivi_Nhap_Theo_ngay(Danh_sach_Tivi, Ngay)
     Danh_sach_Thong_ke = Tong_ket_Danh_sach_Tivi(Danh_sach_Tivi, Ngay)
     Chuoi_HTML_Thong_ke_Tivi = Tao_Chuoi_HTML_Thong_ke_Tivi(Danh_sach_Thong_ke)
     return render_template("Nhan_vien_nhap_hang/MH_Xem_Phieu_nhap.html", Chuoi_HTML_Thong_ke_Tivi=Chuoi_HTML_Thong_ke_Tivi)
+
+@app.route("/nvnh/tim-kiem/<string:Chuoi_tim_kiem>")
+def NVNH_Tim_kiem(Chuoi_tim_kiem):
+    Danh_sach_Tivi = Doc_Danh_sach_Tivi()
+    danh_sach_Tivi_Xem = Tra_cuu_Tivi(Chuoi_tim_kiem, Danh_sach_Tivi)
+    Chuoi_HTML_Danh_sach_Tivi = Tao_Chuoi_HTML_Danh_sach_Tivi(danh_sach_Tivi_Xem)
+    return render_template("Nhan_vien_nhap_hang/MH_Xem_Danh_sach_Tivi.html", Chuoi_HTML_Danh_sach_Tivi=Chuoi_HTML_Danh_sach_Tivi)
+    
+
