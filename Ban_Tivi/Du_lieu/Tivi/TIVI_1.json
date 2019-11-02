@@ -8,7 +8,17 @@
     "Danh_sach_Phieu_Ban": [],
     "Danh_sach_Phieu_Nhap": [
         {
-            "Ngay": "02-01-2018",
+            "Ngay": "02-11-2019",
+            "So_luong": 2,
+            "Don_gia": 18000000,
+            "Tien": 36000000,
+            "Nhan_vien": {
+                "Ho_ten": "Nguyễn thị bé Nhỏ",
+                "Ma_so": "NV_1"
+            }
+        },
+        {
+            "Ngay": "02-11-2019",
             "So_luong": 2,
             "Don_gia": 18000000,
             "Tien": 36000000,
