@@ -57,6 +57,8 @@ def NVNH_Dang_xuat():
 
 @app.route("/nvnh/danh-sach-tivi", methods=['GET','POST'])
 def NVNH_Xem_DS_Tivi():
+    if session.get("session_NVNH") == None:
+        return redirect(url_for("NVNH_Dang_nhap"))
     Danh_sach_Tivi = Doc_Danh_sach_Tivi()
     danh_sach_Tivi_Xem = Danh_sach_Tivi
     Chuoi_HTML_Danh_sach_Tivi = Tao_Chuoi_HTML_Danh_sach_Tivi(danh_sach_Tivi_Xem)
@@ -64,6 +66,8 @@ def NVNH_Xem_DS_Tivi():
 
 @app.route("/nvnh/danh-sach-phieu-nhap")
 def NVNH_Danh_sach_Phieu_nhap():
+    if session.get("session_NVNH") == None:
+        return redirect(url_for("NVNH_Dang_nhap"))
     Danh_sach_Tivi = Doc_Danh_sach_Tivi()
     Ngay = datetime.now().strftime("%d-%m-%Y")
     Danh_sach_Tivi_nhap = Danh_sach_Tivi_Nhap_Theo_ngay(Danh_sach_Tivi, Ngay)
@@ -73,9 +77,31 @@ def NVNH_Danh_sach_Phieu_nhap():
 
 @app.route("/nvnh/tim-kiem/<string:Chuoi_tim_kiem>")
 def NVNH_Tim_kiem(Chuoi_tim_kiem):
+    if session.get("session_NVNH") == None:
+        return redirect(url_for("NVNH_Dang_nhap"))
     Danh_sach_Tivi = Doc_Danh_sach_Tivi()
     danh_sach_Tivi_Xem = Tra_cuu_Tivi(Chuoi_tim_kiem, Danh_sach_Tivi)
     Chuoi_HTML_Danh_sach_Tivi = Tao_Chuoi_HTML_Danh_sach_Tivi(danh_sach_Tivi_Xem)
     return render_template("Nhan_vien_nhap_hang/MH_Xem_Danh_sach_Tivi.html", Chuoi_HTML_Danh_sach_Tivi=Chuoi_HTML_Danh_sach_Tivi)
-    
+
+@app.route("/nvnh/nhap/<string:Ma_so>/", methods=['GET','POST'])
+def NVNH_Nhap_Tivi(Ma_so):
+    if session.get("session_NVNH") == None:
+        return redirect(url_for("NVNH_Dang_nhap"))
+
+    Nhan_vien_Dang_nhap = session["session_NVNH"]
+    Danh_sach_Tivi = Doc_Danh_sach_Tivi()
+    Tivi_Chon = Lay_chi_tiet_Tivi(Danh_sach_Tivi, Ma_so)
+
+    if Tivi_Chon != None:
+        So_luong = 1
+        Thong_bao = ""
+        if request.method == "POST":
+            So_luong = int(request.form.get("Th_So_luong"))
+            Thanh_tien = Nhap_Tivi(Nhan_vien_Dang_nhap, Tivi_Chon, So_luong)
+            Thong_bao =  "Vừa nhập " + str(So_luong) + " " + Tivi_Chon["Ten"] + "<br>"
+            Thong_bao = 'Tiền phải trả là: {:,}'.format(Thanh_tien)
+            Ghi_Tivi(Tivi_Chon)
+    Chuoi_HTML_Tivi = Tao_Chuoi_HTML_Tivi(Tivi_Chon, Thong_bao, So_luong)
+    return render_template("Nhan_vien_nhap_hang/MH_Nhap_Tivi.html", Chuoi_HTML_Tivi=Chuoi_HTML_Tivi)
 
