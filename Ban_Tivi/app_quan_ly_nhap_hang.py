@@ -95,7 +95,7 @@ def QLNH_Cap_nhat_Tivi(Ma_so):
         Thong_bao = ""
         if request.method == "POST":
             Tivi_Chon["Don_gia_Nhap"] = int(request.form.get("Th_So_luong"))
-            Thong_bao =  "Vừa cập nhật " + Tivi_Chon["Don_gia_Nhap"] + " " + Tivi_Chon["Ten"] + " Thành công<br>"
+            Thong_bao =  "Vừa cập nhật " + str(Tivi_Chon["Don_gia_Nhap"]) + " " + Tivi_Chon["Ten"] + " Thành công<br>"
             Ghi_Tivi(Tivi_Chon)
     Chuoi_HTML_Tivi = Tao_Chuoi_HTML_Tivi(Tivi_Chon, Thong_bao, Tivi_Chon["Don_gia_Nhap"])
     return render_template("Quan_ly_Nhap_hang/MH_Cap_nhap_Tivi.html", Chuoi_HTML_Tivi=Chuoi_HTML_Tivi)

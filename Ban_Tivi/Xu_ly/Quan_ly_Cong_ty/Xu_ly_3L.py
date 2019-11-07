@@ -69,7 +69,7 @@ def Tong_ket_1_Tivi_Theo_Ngay(Tivi, Ngay):
     Tong_So_luong = 0
     Tong_Tien = 0
     Don_gia = 0
-    for Phieu_ban in Tivi["Danh_sach_Phieu_Nhap"]:
+    for Phieu_ban in Tivi["Danh_sach_Phieu_Ban"]:
            if Phieu_ban["Ngay"] == Ngay: 
                 Tong_So_luong += int(Phieu_ban["So_luong"])
                 Tong_Tien += int(Phieu_ban["Tien"])
@@ -92,7 +92,6 @@ def Danh_sach_Tivi_Nhap_Theo_ngay(Danh_sach_Tivi, Ngay):
            if Phieu_ban["Ngay"] == Ngay:               
                Danh_sach.append(Tivi) 
                break
-        Danh_sach
     return Danh_sach
 
 # Xử lý Thể hiện
@@ -107,23 +106,127 @@ def Tao_chuoi_HTML_Nhan_vien(Nhan_vien):
     
     return Markup(Chuoi_HTML_Nhan_vien)  
 
+
+def Danh_sach_Tivi_Da_ban_Theo_ngay(Danh_sach_Tivi, Ngay):
+    Danh_sach = []
+    for Tivi in Danh_sach_Tivi:
+        
+        for Phieu_ban in Tivi["Danh_sach_Phieu_Ban"]:
+            if Phieu_ban["Ngay"] == Ngay:               
+                Danh_sach.append(Tivi)
+                break
+    return Danh_sach
+
+def Danh_sach_Tivi_Da_ban_Theo_ten(Danh_sach_Tivi, Ten):
+    Danh_sach = []
+    for Tivi in Danh_sach_Tivi:
+        for Phieu_ban in Tivi["Danh_sach_Phieu_Ban"]:
+            if Phieu_ban["Nhan_vien"]["Ho_ten"] == Ten:               
+               Danh_sach.append(Tivi) 
+               break
+        Danh_sach
+    return Danh_sach
+
+def Tao_Chuoi_HTML_Thong_ke_Tivi(Danh_sach_Thong_ke):
+    Ngay = "Ngày: " + datetime.now().strftime('%d-%m-%Y') 
+    Chuoi_Tong_Doanh_Thu = "...Tổng tiền: {:,}".format(sum(Tivi['Tien'] for Tivi in Danh_sach_Thong_ke)).replace(",",".") 
+    
+    Chuoi_HTML_Danh_sach = '<div class="container"><h3>Thống kê Phiếu bán </h3><br/><h5>' + Ngay + Chuoi_Tong_Doanh_Thu + '</h5></div>'
+    Chuoi_HTML_Danh_sach += '<div class="row" >'
+    
+    stt = 1
+    header = '''
+        <div class="dong">
+        <div class="cot">STT</div>
+        <div class="cot">Tivi</div>
+        <div class="cot">Số lượng</div>
+        <div class="cot">Đơn giá</div>
+        <div class="cot">Tiền</div>
+        </div>
+        '''  
+    Chuoi_HTML_Danh_sach +=header
+
+    for Tivi in Danh_sach_Thong_ke:
+        Chuoi_HTML = '''
+        <div class="dong">
+        <div class="cot">'''+ str(stt) +'''</div>
+        <div class="cot">'''+ Tivi['Ten']+'''</div>
+        <div class="cot">'''+ str(Tivi['So_luong']) +'''</div>
+        <div class="cot">'''+ "{:,}".format(Tivi["Don_gia"]).replace(",",".") +'''</div>
+        <div class="cot">'''+ "{:,}".format(Tivi["Tien"]).replace(",",".") +'''</div>
+        </div>
+        '''     
+        stt += 1
+
+        
+        Chuoi_HTML_Danh_sach +=Chuoi_HTML 
+
+    Chuoi_HTML_Danh_sach += '</div>'               
+    return Markup(Chuoi_HTML_Danh_sach)  
+
+def Tao_Chuoi_HTML_Doanh_thu_Nhan_vien(Danh_sach_Thong_ke):
+    Ngay = datetime.now().strftime('%d-%m-%Y')
+    Chuoi_HTML_Danh_sach = '<div class="container"><h3>Thống kê Phiếu bán </h3><br/><h5>Ngày ' + Ngay + '</h5></div>'
+    Cong_ty = Doc_Cong_ty()  
+    DS_Ban_theo_Nhan_vien = [ nhan_vien["Ho_ten"] for nhan_vien in Cong_ty["Danh_sach_Nhan_vien_Ban_hang"]]
+    Danh_sach_Tivi_theo_Nhan_vien = {}
+    for nhan_vien in DS_Ban_theo_Nhan_vien:
+        ds_tivi = Danh_sach_Tivi_Da_ban_Theo_ten(Danh_sach_Thong_ke, nhan_vien)
+        if ds_tivi:
+            Danh_sach_Tivi_theo_Nhan_vien[nhan_vien] = Tong_ket_Danh_sach_Tivi(ds_tivi, Ngay)
+             
+    for ten, ds_tivi in Danh_sach_Tivi_theo_Nhan_vien.items():
+
+        Chuoi_Tong_Doanh_Thu = ten + "...Tổng tiền: {:,}".format(sum(Tivi['Tien'] for Tivi in ds_tivi)).replace(",",".") 
+        Chuoi_HTML_Danh_sach += '<div class="container"><br/><h5>' + Chuoi_Tong_Doanh_Thu + '</h5></div>'
+        Chuoi_HTML_Danh_sach += '<div class="row" >'
+        stt = 1
+        header = '''
+            <div class="dong">
+            <div class="cot">STT</div>
+            <div class="cot">Tivi</div>
+            <div class="cot">Số lượng</div>
+            <div class="cot">Đơn giá</div>
+            <div class="cot">Tiền</div>
+            </div>
+            '''  
+        Chuoi_HTML_Danh_sach +=header
+
+        for Tivi in ds_tivi:
+            Chuoi_HTML = '''
+            <div class="dong">
+            <div class="cot">'''+ str(stt) +'''</div>
+            <div class="cot">'''+ Tivi['Ten']+'''</div>
+            <div class="cot">'''+ str(Tivi['So_luong']) +'''</div>
+            <div class="cot">'''+ "{:,}".format(Tivi["Don_gia"]).replace(",",".") +'''</div>
+            <div class="cot">'''+ "{:,}".format(Tivi["Tien"]).replace(",",".") +'''</div>
+            </div>
+            '''     
+            stt += 1
+
+            
+            Chuoi_HTML_Danh_sach +=Chuoi_HTML 
+
+        Chuoi_HTML_Danh_sach += '</div>'               
+    return Markup(Chuoi_HTML_Danh_sach)  
+
 def Tao_Chuoi_HTML_Tivi(Tivi, Thong_bao, So_luong):
     Chuoi_Hinh='<img style="width:300px" src="'+ \
                  url_for('static', filename = 'images/' + Tivi["Ma_so"]+'.png') + '" />'
     Chuoi_Loai_Tivi = "Thuộc loại: " + Tivi["Nhom_Tivi"]["Ten"] + "<br/>"
     Chuoi_Ky_hieu = "Ký hiệu:" + Tivi["Ky_hieu"] + "<br/>"
     Chuoi_SL_Ton = "Số lượng tồn:" + str(Tivi["So_luong_Ton"]) + "<br/>"
-    Chuoi_Don_gia_Nhap="Đơn giá Nhập {:,}".format(Tivi["Don_gia_Nhap"]).replace(",",".") 
+    Chuoi_Don_gia_Ban="Đơn giá Bán {:,}".format(Tivi["Don_gia_Ban"]).replace(",",".") 
     Chuoi_Ngay = "Ngày: "  + datetime.now().strftime('%d-%m-%Y')
     Chuoi_HTML_Tivi = '''
         <div class="container">
           <div class="card" align="center">
-            <h4 class="card-title">Cập nhật Đơn giá nhập</h4>
+            <h4 class="card-title">Cập nhật Đơn giá bán</h4>
             <h6 class="card-title">'''+ Chuoi_Ngay+'''</h6>
             ''' + Chuoi_Hinh + '''
             <div class="card-body">
               <h4 class="card-title">'''+ Tivi["Ten"]+'''</h4>
-              <p class="card-text">'''+  Chuoi_Don_gia_Nhap  +'''<br/>'''+ Chuoi_SL_Ton +''' </p>
+              <p class="card-text">'''+  Chuoi_Don_gia_Ban  +'''<br/>'''+ Chuoi_SL_Ton +''' </p>
     
               <form method="POST">
                 <div class="container-fluid">
@@ -145,7 +248,7 @@ def Tao_Chuoi_HTML_Tivi(Tivi, Thong_bao, So_luong):
 def Tao_Chuoi_HTML_Danh_sach_Tivi(Danh_sach_Tivi):   
     Chuoi_HTML_Danh_sach = '<div class="row" >'
     for Tivi in Danh_sach_Tivi:        
-        Chuoi_Don_gia_Nhap="Đơn giá Nhập {:,}".format(Tivi["Don_gia_Nhap"]).replace(",",".") 
+        Chuoi_Don_gia_Nhap="Đơn giá Bán {:,}".format(Tivi["Don_gia_Ban"]).replace(",",".") 
         Chuoi_So_luong_ton = "SL Tồn " + str(Tivi["So_luong_Ton"])
         Chuoi_Hinh='<img  style="width:60px;height:60px"  src="'+ \
                  url_for('static', filename = 'images/' + Tivi["Ma_so"]+'.png') + '" />'        
@@ -154,8 +257,7 @@ def Tao_Chuoi_HTML_Danh_sach_Tivi(Danh_sach_Tivi):
         Chuoi_SL_Ton = "Số lượng tồn:" + str(Tivi["So_luong_Ton"]) + "<br/>"
         Chuoi_Thong_tin='<div class="btn" style="text-align:left">' + \
                  Tivi["Ten"] + "<br />" + Chuoi_Don_gia_Nhap + "<br/>" + \
-                 Chuoi_SL_Ton + \
-                 '''<a href="/qlnh/cap-nhat/''' + Tivi["Ma_so"] +'''/">Cập nhật</a>'''+ '</div>'
+                 Chuoi_SL_Ton + '</div>'
         Chuoi_HTML ='<div class="col-md-4" >' +  \
                 Chuoi_Hinh + Chuoi_Thong_tin + '</div>' 
         Chuoi_HTML_Danh_sach +=Chuoi_HTML 
