@@ -4,7 +4,7 @@
     "Ky_hieu": "KDL-40W650D",
     "Don_gia_Ban": 9990000,
     "Don_gia_Nhap": 7990000,
-    "So_luong_Ton": 87,
+    "So_luong_Ton": 99,
     "Danh_sach_Phieu_Ban": [
         {
             "Ngay": "28-12-2017",
@@ -65,6 +65,76 @@
                 "Ho_ten": "Tô thị bé Bé",
                 "Ma_so": "NV_2"
             }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 1,
+            "Don_gia": 9990000,
+            "Tien": 9990000,
+            "Nhan_vien": {
+                "Ho_ten": "Tô thị bé Bé",
+                "Ma_so": "NV_2"
+            }
         }
     ],
     "Danh_sach_Phieu_Nhap": [
@@ -83,6 +153,26 @@
             "So_luong": 10,
             "Don_gia": 7990000,
             "Tien": 79900000,
+            "Nhan_vien": {
+                "Ho_ten": "Nguyễn thị bé Nhỏ",
+                "Ma_so": "NV_1"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 11,
+            "Don_gia": 7990000,
+            "Tien": 87890000,
+            "Nhan_vien": {
+                "Ho_ten": "Nguyễn thị bé Nhỏ",
+                "Ma_so": "NV_1"
+            }
+        },
+        {
+            "Ngay": "05-11-2019",
+            "So_luong": 8,
+            "Don_gia": 7990000,
+            "Tien": 63920000,
             "Nhan_vien": {
                 "Ho_ten": "Nguyễn thị bé Nhỏ",
                 "Ma_so": "NV_1"

@@ -71,7 +71,7 @@ def NVNH_Danh_sach_Phieu_nhap():
     Danh_sach_Tivi = Doc_Danh_sach_Tivi()
     Ngay = datetime.now().strftime("%d-%m-%Y")
     Danh_sach_Tivi_nhap = Danh_sach_Tivi_Nhap_Theo_ngay(Danh_sach_Tivi, Ngay)
-    Danh_sach_Thong_ke = Tong_ket_Danh_sach_Tivi(Danh_sach_Tivi, Ngay)
+    Danh_sach_Thong_ke = Tong_ket_Danh_sach_Tivi(Danh_sach_Tivi_nhap, Ngay)
     Chuoi_HTML_Thong_ke_Tivi = Tao_Chuoi_HTML_Thong_ke_Tivi(Danh_sach_Thong_ke)
     return render_template("Nhan_vien_nhap_hang/MH_Xem_Phieu_nhap.html", Chuoi_HTML_Thong_ke_Tivi=Chuoi_HTML_Thong_ke_Tivi)
 

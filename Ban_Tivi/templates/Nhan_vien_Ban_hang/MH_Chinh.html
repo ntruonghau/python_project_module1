@@ -12,7 +12,7 @@
             var keycode = (e.keyCode ? e.keyCode : e.which);
             if (keycode == '13') {
                 var s = document.getElementById("Th_Ma_so");
-                s.value = "TRA_CUU";
+                s.value = "TIM_KIEM";
                 document.getElementById("He_thong").submit();
             }
         }
@@ -24,7 +24,7 @@
     <form method="post" id="He_thong">
         <div class="CUA_SO_1" style="background-color:whitesmoke">
             <div class="btn PET">
-                <img src="{{url_for('static', filename = 'PET.png')}}" style="width:40px;height:30px;" />
+                <img src="{{url_for('static', filename = 'images/PET.png')}}" style="width:40px;height:30px;" />
                 <div class="btn TOM_TAT" style="color:blue">Mô hình - Công nghệ - Kỹ thuật</div>
             </div>
             <div>
